@@ -7,5 +7,43 @@
 
 
 <ion-content padding>
-  
+  <ion-list>
+    <ion-item>
+      <ion-label stacked>Id</ion-label>
+      <ion-input type="number" [(ngModel)]="id"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Title</ion-label>
+      <ion-input type="text" [(ngModel)]="title"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Text</ion-label>
+      <ion-input type="text" [(ngModel)]="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Every</ion-label>
+      <ion-select [(ngModel)]="every">
+        <ion-option value="second">Second</ion-option>
+        <ion-option value="minute">Minute</ion-option>
+        <ion-option value="hour">Hour</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+  <ion-row>
+    <ion-col width-80>
+      {{formatedDate}}
+    </ion-col>
+    <ion-col width-20>
+      <button (click) = "openDatePicker()">
+        <ion-icon ios="ios-calendar" md="md-calendar"></ion-icon>
+        Date
+      </button>
+    </ion-col>
+  </ion-row>
+
+  <button (click) = "notify()">
+    <ion-icon ios="ios-alarm" md="md-alarm"></ion-icon>
+      Notifier
+  </button>
 </ion-content>

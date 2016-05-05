@@ -27,13 +27,8 @@
     "ionic-plugin-keyboard"
   ],
   "cordovaPlatforms": [
-    "ios",
-    {
-      "platform": "ios",
-      "version": "",
-      "locator": "ios"
-    },
-    "android"
+    "android",
+    "ios"
   ],
   "name": "ionic2localnotifications",
   "description": "Ionic2LocalNotifications: An Ionic project"
