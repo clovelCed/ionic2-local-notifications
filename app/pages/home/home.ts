@@ -1,4 +1,4 @@
-import {Page} from 'ionic-angular';
+import {Page, Toast, NavController} from 'ionic-angular';
 import {DatePicker, LocalNotifications} from 'ionic-native';
 
 
@@ -8,14 +8,15 @@ import {DatePicker, LocalNotifications} from 'ionic-native';
 export class HomePage {
 
   at:Date;
-  formatedDate:string;
   id:number;
   text:string;
   title:string;
   every:string;
-  
-  constructor() {
+  formatedDate:string;
+  nav:NavController;
 
+  constructor(nav: NavController) {
+    this.nav = nav;
   }
 
   openDatePicker(){
@@ -41,6 +42,11 @@ export class HomePage {
       at:this.at,
       every:this.every
     });
+
+    this.nav.present(Toast.create({
+      message:'Notification programmée',
+      duration:3000
+    }));
   }
 
 }

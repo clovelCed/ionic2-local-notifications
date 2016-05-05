@@ -7,6 +7,7 @@
 
 
 <ion-content padding>
+  <h1 text-center>Create a single notification</h1>
   <ion-list>
     <ion-item>
       <ion-label stacked>Id</ion-label>
@@ -30,20 +31,16 @@
     </ion-item>
   </ion-list>
 
-  <ion-row>
-    <ion-col width-80>
-      {{formatedDate}}
-    </ion-col>
-    <ion-col width-20>
-      <button (click) = "openDatePicker()">
-        <ion-icon ios="ios-calendar" md="md-calendar"></ion-icon>
-        Date
-      </button>
-    </ion-col>
-  </ion-row>
-
-  <button (click) = "notify()">
-    <ion-icon ios="ios-alarm" md="md-alarm"></ion-icon>
-      Notifier
+  <button (click) = "openDatePicker()" mentol full>
+    <ion-icon ios="ios-calendar" md="md-calendar"></ion-icon>
+    Choisir date
   </button>
+  <p *ngIf="formatedDate">
+    Date de début : {{formatedDate}}
+  </p>
+
+  <button fab pink fab-bottom fab-center class="fab-footer" (click) = "notify()" >
+    <ion-icon ios="ios-alarm" md="md-alarm"></ion-icon>
+  </button>
+  <div class="bar-footer"></div>
 </ion-content>
