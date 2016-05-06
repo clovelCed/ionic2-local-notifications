@@ -10,6 +10,14 @@ export class HomePage {
 
   constructor(nav: NavController) {
     this.nav = nav;
+
+    LocalNotifications.on('click', function(notif){
+      nav.present(Toast.create({
+        message:'Notification id : ' + notif.id + ' clicked !',
+        duration:3000
+      }));
+    });
+
   }
 
   singleNotification(id: number, minute: number){
@@ -54,32 +62,12 @@ export class HomePage {
       .then(() => this.toast('Notification canceled'));
   }
 
-  clearNotification(){
-
-  }
-
-  notify(event){
-    /*LocalNotifications.schedule({
-      id:this.loginForm.value.id,
-      title:this.loginForm.value.title,
-      text:this.loginForm.value.text,
-      at:this.at,
-      every:this.every
-    });*/
-
-
-  }
-
-
   clearAll(){
     LocalNotifications.clearAll()
-    .then(() => this.nav.present(Toast.create({
-      message:'All notifications cleared !',
-      duration:3000
-    })));
+    .then(() => this.toast('All notifications cleared !'));
   }
 
-  toast(msg: string){
+  public toast(msg: string){
     this.nav.present(Toast.create({
       message:msg,
       duration:3000
