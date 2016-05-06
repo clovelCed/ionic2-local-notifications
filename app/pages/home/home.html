@@ -1,66 +1,63 @@
 <ion-navbar *navbar>
-  <button menuToggle>
-    <ion-icon name="menu"></ion-icon>
-  </button>
   <ion-title>Ionic 2 - Local notifications</ion-title>
 </ion-navbar>
 
 
-<ion-content padding>
-  <form [ngFormModel]="loginForm" (submit)="notify($event)">
-    <h1 text-center>Create a single notification</h1>
-    <ion-list>
-      <ion-item>
-        <ion-label stacked>Id</ion-label>
-        <ion-input type="number" ngControl="id"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label stacked>Title</ion-label>
-        <ion-input type="text" ngControl="title"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label stacked>Text</ion-label>
-        <ion-input type="text" ngControl="text"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label>Every</ion-label>
-        <ion-select [(ngModel)]="every">
-          <ion-option value="second">Second</ion-option>
-          <ion-option value="minute">Minute</ion-option>
-          <ion-option value="hour">Hour</ion-option>
-        </ion-select>
-      </ion-item>
-    </ion-list>
+<ion-content padding class="home">
+  <ion-card>
+    <ion-card-header>
+      Single notification
+    </ion-card-header>
+    <ion-card-content>
+      <p>
+        A notification that begins now.
+      </p>
+      <p>
+        <button type="button" (click) = "singleNotification(1, 0)" mentol full>
+          <ion-icon ios="ios-alarm" md="md-alarm"></ion-icon>
+        </button>
+      </p>
+    </ion-card-content>
+  </ion-card>
 
-    <button (click) = "openDatePicker()" mentol full type="button">
-      <ion-icon ios="ios-calendar" md="md-calendar"></ion-icon>
-      Choisir date
-    </button>
-    <p *ngIf="formatedDate">
-      Date de début : {{formatedDate}}
-    </p>
+  <ion-card>
+    <ion-card-header>
+      Multiple notification
+    </ion-card-header>
+    <ion-card-content>
+      <p>
+        Two notification that starts with one minute interval.
+      </p>
+      <p>
+        <button type="button" (click) = "multipleNotification()" mentol full>
+          <ion-icon ios="ios-alarm" md="md-alarm"></ion-icon>
+        </button>
+      </p>
+    </ion-card-content>
+  </ion-card>
 
-    <button
-      fab danger fab-bottom fab-left outline
-      class="fab-footer"
-      (click) = "clearAll()"
-      type="button">
-      <ion-icon ios="ios-trash" md="md-trash"></ion-icon>
-    </button>
-    <button
-      fab danger fab-bottom fab-right outline
-      class="fab-footer"
-      (click) = "cancelById()"
-      type="button">
-      <ion-icon ios="ios-close" md="md-close"></ion-icon>
-    </button>
-    <button
-      fab primary fab-bottom fab-center outline
-      class="fab-footer"
-      type="submit"
-      [disabled]="!loginForm.valid">
-      <ion-icon ios="ios-alarm" md="md-alarm"></ion-icon>
-    </button>
-  </form>
-  <div class="bar-footer"></div>
+  <ion-card>
+    <ion-card-header>
+      Cancel notification
+    </ion-card-header>
+    <ion-card-content>
+      <p>
+        The first button triggers a notification, the second cancels the notification.
+      </p>
+      <ion-row>
+        <ion-col width-50>
+          <button type="button" (click) = "singleNotification(4, 1)" mentol full>
+            <ion-icon ios="ios-alarm" md="md-alarm"></ion-icon>
+          </button>
+        </ion-col>
+        <ion-col width-50>
+          <button type="button" (click) = "cancelNotification()" teal full>
+            <ion-icon ios="ios-trash" md="md-trash"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+
+    </ion-card-content>
+  </ion-card>
+
 </ion-content>

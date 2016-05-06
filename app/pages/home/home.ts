@@ -1,69 +1,75 @@
 import {Page, Toast, NavController} from 'ionic-angular';
-import {DatePicker, LocalNotifications} from 'ionic-native';
-import {FormBuilder, Validators} from 'angular2/common';
-import {Notification} from './notification';
-
+import {LocalNotifications} from 'ionic-native';
 
 @Page({
   templateUrl: 'build/pages/home/home.html',
 })
 export class HomePage {
 
-  at:Date;
-  every:string;
-  formatedDate:string;
   nav:NavController;
-  loginForm:any;
 
-
-  constructor(nav: NavController, form: FormBuilder) {
+  constructor(nav: NavController) {
     this.nav = nav;
+  }
 
-    this.loginForm = form.group({
-      id:["", Validators.required],
-      text:["", Validators.required],
-      title:["", Validators.required]
+  singleNotification(id: number, minute: number){
 
+    let date = new Date();
+    date.setMinutes(date.getMinutes() + minute);
+
+    LocalNotifications.schedule({
+      id:id,
+      title:'Single notification',
+      text:'This is a single notification',
+      at:date
     });
+
+    this.toast('Notification scheduled !');
   }
 
-  openDatePicker(){
-    DatePicker.show({
-      date:new Date(),
-      minDate:new Date(),
-      mode:'datetime',
-      titleText:'Start notification'
-    }).then(at => this.formatedDate = this.formatDate(at));
+  multipleNotification(){
+
+    let first = new Date();
+    let second = new Date();
+    second.setMinutes(first.getMinutes()+1);
+
+    LocalNotifications.schedule([{
+      id:2,
+      title:'Multiple notification 1',
+      text:'This is the first notification',
+      at:first
+    },
+    {
+      id:3,
+      title:'Multiple notification 2',
+      text:'This is the second notification',
+      at:second
+    }]);
+
+    this.toast('Notification scheduled !');
   }
 
-  formatDate(date:Date){
-    this.at = date;
-    var options = { weekday: "long", year: "numeric", month: "short", day: "numeric", hour:"numeric", minute:"numeric" };
-    return new Intl.DateTimeFormat("fr-FR", options).format(date);
+  cancelNotification(){
+    LocalNotifications.cancel(4)
+      .then(() => this.toast('Notification canceled'));
+  }
+
+  clearNotification(){
+
   }
 
   notify(event){
-    LocalNotifications.schedule({
+    /*LocalNotifications.schedule({
       id:this.loginForm.value.id,
       title:this.loginForm.value.title,
       text:this.loginForm.value.text,
       at:this.at,
       every:this.every
-    });
+    });*/
 
-    this.nav.present(Toast.create({
-      message:'Programmed notification !',
-      duration:3000
-    }));
+
   }
 
-  cancelById(){
-    LocalNotifications.cancel(this.loginForm.value.id)
-      .then(() => this.nav.present(Toast.create({
-        message:'Notification '+this.loginForm.value.id+' deleted !',
-        duration:3000
-      })));
-  }
 
   clearAll(){
     LocalNotifications.clearAll()
@@ -71,6 +77,13 @@ export class HomePage {
       message:'All notifications cleared !',
       duration:3000
     })));
+  }
+
+  toast(msg: string){
+    this.nav.present(Toast.create({
+      message:msg,
+      duration:3000
+    }));
   }
 
 }
