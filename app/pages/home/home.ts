@@ -1,6 +1,7 @@
 import {Page, Toast, NavController} from 'ionic-angular';
 import {DatePicker, LocalNotifications} from 'ionic-native';
 import {FormBuilder, Validators} from 'angular2/common';
+import {Notification} from './notification';
 
 
 @Page({
@@ -13,6 +14,7 @@ export class HomePage {
   formatedDate:string;
   nav:NavController;
   loginForm:any;
+
 
   constructor(nav: NavController, form: FormBuilder) {
     this.nav = nav;
