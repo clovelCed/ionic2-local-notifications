@@ -10,6 +10,7 @@ export class HomePage {
 
   constructor(nav: NavController) {
     this.nav = nav;
+    
 
     LocalNotifications.on('click', function(notif){
       nav.present(Toast.create({
